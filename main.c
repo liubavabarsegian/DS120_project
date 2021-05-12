@@ -13,7 +13,7 @@
 #include <stdio.h>
 
 int main()
-{
+{	int a = 7
 	printf("I love Liuba <3\n");
 	return (0);
 }

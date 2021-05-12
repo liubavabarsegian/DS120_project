@@ -13,8 +13,8 @@
 #include <stdio.h>
 
 int main()
-{	int a = 7
-	printf("I love Liuba <3\n");
+{	int a = 7;
+	printf("I love cheeboorek <3\n");
 	double kek;
 	return (0);
 }

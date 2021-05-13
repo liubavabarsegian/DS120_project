@@ -4,11 +4,29 @@ from dash.dependencies import Input, Output, State
 import dash_core_components as dcc
 import dash_html_components as html
 from app import app
+#import app
+
+#app = dash.Dash(__name__, suppress_callback_exceptions=True,
+                #meta_tags=[{'name': 'viewport',
+                            #'content': 'width=device-width, initial-scale=1.0'}]
+                #)
+#server = app.server
+
+
 
 app.config['suppress_callback_exceptions']=True
 
-layout = html.Div([
-    html.H1("Check whether the cosmetics suits you"),
+
+colors = {
+    'background':'#111111',
+    'text':'black'
+}
+app.layout = html.Div([
+    html.H1(children = "Check whether the cosmetics suits you", 
+    style = {
+        'textAlign':'center',
+        'colors': colors['text']
+    }),
 
         dcc.Upload(
             id='upload-image',
@@ -29,9 +47,10 @@ layout = html.Div([
                 "transform": "scale(1.5)",
 
                 "background": "c",
-                "background": "-moz-radial-gradient(circle, rgba(70,252,177,1) 4%, rgba(63,251,110,1) 95%)",
-                "background": "-webkit-radial-gradient(circle, rgba(70,252,177,1) 4%, rgba(63,251,110,1) 95%)",
-                "background": "radial-gradient(circle, rgba(70,252,177,1) 4%, rgba(63,251,110,1) 95%)",
+                #"background": "blue",
+                #"background": "blue",
+                'color':'darkslateblue',
+                "background": "lightblue",
                 "filter": "progid:DXImageTransform.Microsoft.gradient(startColorstr='#46fcb1',endColorstr='#3ffb6e',GradientType=1)"
             },
 
@@ -40,7 +59,9 @@ layout = html.Div([
         ),
         html.Div(id='output-image-upload'),
 
+
 ])
+
 
 def parse_contents(contents, filename):
     return html.Div([

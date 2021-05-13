@@ -7,9 +7,9 @@ import dash
 import plotly.express as px
 import pandas as pd
 import pathlib
-from app import app
+import app
+#from app import app
 import dash_table
-
 
 # get relative data folder, we are doiing this, as the datasets are in the datasets folder, not the current directory
 PATH = pathlib.Path(__file__).parent
@@ -18,10 +18,21 @@ DATA_PATH = PATH.joinpath("../datasets").resolve()
 df = pd.read_csv(DATA_PATH.joinpath("Sephora_cosmetics_df.csv"))
 #sales_list = ["North American Sales", "EU Sales", "Japan Sales", "Other Sales",	"World Sales"]
 
+#app = dash.Dash(__name__, suppress_callback_exceptions=True,
+                #meta_tags=[{'name': 'viewport',
+                            #'content': 'width=device-width, initial-scale=1.0'}]
+                #)
+#server = app.server
+
 app.config['suppress_callback_exceptions']=True
 
-layout = html.Div([
-    html.H1("Choose cosmetics"),
+app.layout = html.Div([
+    html.H1("Choose cosmetics",
+    style={
+        'textAlign':'center',
+        'color':'navy'
+    }), 
+    
     html.Div([
         html.P('We will help you to choose the best fitting skincare product.\n')
         #html.P("This conversion happens behind the scenes by Dash's JavaScript front-end")
@@ -35,12 +46,19 @@ layout = html.Div([
                 {'label': 'Treatment', 'value': 'Treatment'},
                 {'label': 'Eye cream', 'value': 'Eye cream'},
                 {'label': 'Sun protect', 'value': 'Sun protect'},
-                {'label': 'Face Mask', 'value': 'Face Mask'}
+                {'label': 'Face Mask', 'value': 'Face Mask'},
+                {'label': 'Not sure', 'value' : 'Not sure'}
             ],
+            style = {
+                'color':'darkslategray',
+                'background-color':'powderblue'
+            },
             value='Moisturizer', #the default value set
             multi=True
         ),
     html.H4("Please specify your skin type\n"),
+    html.H5("Here is a picture that can help you determine the skin type. If anyway you cannot do it, please select 'Not sure' option\n"),
+    html.Img(src='https://3.bp.blogspot.com/-efc9Jwzy_xg/WxW09_1PB3I/AAAAAAAAAWk/7QwYJ1T03CYVfLr2NHmACZ33dX3Uuqk1gCLcBGAs/s640/IMG_8215.JPG'),
     dcc.Dropdown( #dropdown for skin type
                 id = 'skintype_dd',
                 options=[
@@ -48,8 +66,13 @@ layout = html.Div([
                     {'label': 'Dry', 'value': 'Dry'},
                     {'label': 'Combination', 'value': 'Combination'},
                     {'label': 'Sensitive', 'value': 'Sensitive'},
-                    {'label': 'Not sure', 'value': 'ns'}
+                    {'label' : 'Normal', 'value' : 'Noraml'},
+                    {'label': 'Not sure', 'value' : 'Not sure'}
                 ],
+                style = {
+                'color':'darkslategray',
+                'background-color':'powderblue'
+            },
                 value='Combination',
                 multi=True
             ),
@@ -217,3 +240,5 @@ def cosmetics(label, skintype):
 
 
 
+if __name__ == '__main__':
+    app.run_server(debug=True)

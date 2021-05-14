@@ -9,7 +9,7 @@ import pandas as pd
 import pathlib
 import app
 import dash_table
-import dash_table_experiments as dt
+#import dash_table_experiments as dt
 import dash_bootstrap_components as dbc
 
 
@@ -36,12 +36,15 @@ app.layout = html.Div(
     html.Div([
         html.H1("Choose cosmetics",
             style={
+                'vertical-align':'buttom',
                 'textAlign':'center',
-                'color':'navy', 'background-color':'lavender',
-                'width':'895px', 
-                'height':'100px', 
-                'vertical-align':'middle', 
-                'transform':'scale(1.5)', 
+                'color':'navy', 'background-color':'#AFC4D5',
+                #'width':'895px', 
+                'height':'70px',
+                'text-align':'50PX',
+                'borderRadius':'25px'
+                #'transform':'scale(1.5)'
+                }
         )   
     ]),
     
@@ -49,11 +52,21 @@ app.layout = html.Div(
     
 
     html.Div([
-        html.P('We will help you to choose the best fitting skincare product.\n'),
+        html.H2('We will help you to choose the best fitting skincare product.\n', 
+        style={
+            'margin':'25px',
+            'text-align':'center',
+            'color':'navy'
+        }),
         #html.P("This conversion happens behind the scenes by Dash's JavaScript front-end"),
             
         
-    html.H4("Please specify the skincare product you want\n"),
+    html.H3("Please specify the skincare product you want\n", 
+        style={
+            'color':'navy',
+            'margin':'15px'
+            #'margin-left':'center'
+        }),
     dcc.Dropdown( #dropdown for product type
             id = 'product_dd',
             options=[
@@ -67,18 +80,35 @@ app.layout = html.Div(
             ],
             style = {
                 'color':'darkslategray',
-                'background-color':'lavender'
+                'background-color':'#AFC4D5', 
+                #'display':'inline-block',
+                'margin-top':'25px',
+                'margin-bottom':'25px',
+                'borderRadius':'25px',
             },
             value='Moisturizer', #the default value set
             multi=True
         ),
-    html.H4("Please specify your skin type\n"),
-    html.H5("Here is a picture that can help you determine the skin type. If anyway you cannot do it, please select 'Not sure' option\n"),
+    html.H3("Please specify your skin type\n", 
+            style= {
+                'color':'navy',
+                'margin':'15px',
+            }),
+    html.H4("Here is a picture that can help you determine the skin type. If anyway you cannot do it, please select 'Not sure' option\n", 
+        style= {
+                'color':'navy',
+                'margin':'15px'
+            }),
     html.Img(
         src='https://3.bp.blogspot.com/-efc9Jwzy_xg/WxW09_1PB3I/AAAAAAAAAWk/7QwYJ1T03CYVfLr2NHmACZ33dX3Uuqk1gCLcBGAs/s640/IMG_8215.JPG',
         style={
-            'padding':'50px',
-            'borderRadius':'10px'
+            #'padding':'50px',
+            #'borderRadius':'10px',
+            'border-style':'solid',
+            'border-color':'navy',
+            'borderRadius':'50x',
+            'text-align':'center',
+            'display':'block',
         }),
     dcc.Dropdown( #dropdown for skin type
                 id = 'skintype_dd',
@@ -92,15 +122,22 @@ app.layout = html.Div(
                 ],
                 style = {
                 'color':'darkslategray',
-                'background-color':'lavender'
+                'background-color':'#AFC4D5',
+                'margin-top':'25px',
+                'margin-bottom':'25px', 
+                'borderRadius':'25px',
             },
                 value='Combination',
                 multi=True
             ),
    #html.Div(id='my_output')
-    html.H1("\n\n\n\n\n\n\n\n\n\n\n\n\n\n"),
-    html.H4('Here is a table with the most suitable for you cosmetics products\n'),
-    html.H1("\n\n\n\n\n"),
+    
+    html.H3('Here is a table with the most suitable for you cosmetics products\n', 
+            style= {
+                'color':'navy',
+                'margin':'20px',
+            }),
+
     dash_table.DataTable(
 
         id='my_output',
@@ -110,10 +147,11 @@ app.layout = html.Div(
             'border':'1px solid indigo', 
             'fontWeight':'bold'},
         style_cell={
+            'backgroundColor':'#98B2C8',
             'whiteSpace':'normal',
             'height':'auto',
             'color':'navy',
-            'background-color':'thistle',
+            #'background-color':'thistle',
             'border':'1px solid indigo',
             'textAlign':'left',
         
@@ -127,14 +165,12 @@ app.layout = html.Div(
     
     ],
     style = {
-        'backgroundColor':'pink',
+        'backgroundColor':'lavender',
         'marginBottom':'0px',
         'margin-bottom':'0px',
-        
-        }, 
-    
-   
-   )
+        #'background-size':'900px'
+        },
+)
     
  
 

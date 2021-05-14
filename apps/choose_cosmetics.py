@@ -8,8 +8,8 @@ import plotly.express as px
 import pandas as pd
 import pathlib
 import app
-#from app import app
 import dash_table
+import dash_bootstrap_components as dbc
 
 # get relative data folder, we are doiing this, as the datasets are in the datasets folder, not the current directory
 PATH = pathlib.Path(__file__).parent
@@ -18,25 +18,35 @@ DATA_PATH = PATH.joinpath("../datasets").resolve()
 df = pd.read_csv(DATA_PATH.joinpath("Sephora_cosmetics_df.csv"))
 #sales_list = ["North American Sales", "EU Sales", "Japan Sales", "Other Sales",	"World Sales"]
 
-#app = dash.Dash(__name__, suppress_callback_exceptions=True,
-                #meta_tags=[{'name': 'viewport',
-                            #'content': 'width=device-width, initial-scale=1.0'}]
-                #)
-#server = app.server
+app = dash.Dash(__name__, suppress_callback_exceptions=True,
+                meta_tags=[{'name': 'viewport',
+                            'content': 'width=device-width, initial-scale=1.0'}]
+                )
+server = app.server
 
 app.config['suppress_callback_exceptions']=True
 
-app.layout = html.Div([
-    html.H1("Choose cosmetics",
-    style={
-        'textAlign':'center',
-        'color':'navy'
-    }), 
-    
+app.layout = html.Div(
+    id = 'page-content',
+   
+
+    children = [
     html.Div([
-        html.P('We will help you to choose the best fitting skincare product.\n')
-        #html.P("This conversion happens behind the scenes by Dash's JavaScript front-end")
+        html.H1("Choose cosmetics",
+            style={
+                'textAlign':'center',
+                'color':'navy', 'background-color':'lavender'}
+        )   
     ]),
+    
+    
+    
+
+    html.Div([
+        html.P('We will help you to choose the best fitting skincare product.\n'),
+        #html.P("This conversion happens behind the scenes by Dash's JavaScript front-end"),
+            
+        
     html.H4("Please specify the skincare product you want\n"),
     dcc.Dropdown( #dropdown for product type
             id = 'product_dd',
@@ -51,7 +61,7 @@ app.layout = html.Div([
             ],
             style = {
                 'color':'darkslategray',
-                'background-color':'powderblue'
+                'background-color':'lavender'
             },
             value='Moisturizer', #the default value set
             multi=True
@@ -71,19 +81,38 @@ app.layout = html.Div([
                 ],
                 style = {
                 'color':'darkslategray',
-                'background-color':'powderblue'
+                'background-color':'lavender'
             },
                 value='Combination',
                 multi=True
             ),
    #html.Div(id='my_output')
+    html.H1("\n\n\n\n\n\n\n\n\n\n\n\n\n\n"),
+    html.H4('Here is a table with the most suitable for you cosmetics products\n'),
+    html.H1("\n\n\n\n\n"),
     dash_table.DataTable(
         id='my_output',
         columns=[{"name": i, "id": i} for i in df.columns],
-        data=df.to_dict('records')
-    )
+        data=df.to_dict('records'),
+        style_header={'border':'1px solid indigo'},
+        style_cell={
+            'color':'navy',
+            'background-color':'thistle',
+            'border':'1px solid indigo'
+        },
+    ),
+    ]),
+        
+    
+    ],
+    style = {
+        'background':'red',
+            }, 
+   
+   )
+    
+ 
 
-])
 
 
 @app.callback(

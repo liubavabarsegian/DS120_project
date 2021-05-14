@@ -3,14 +3,15 @@ import dash
 from dash.dependencies import Input, Output, State
 import dash_core_components as dcc
 import dash_html_components as html
-from app import app
-#import app
+#from app import app
+import app
 
-#app = dash.Dash(__name__, suppress_callback_exceptions=True,
-                #meta_tags=[{'name': 'viewport',
-                            #'content': 'width=device-width, initial-scale=1.0'}]
-                #)
-#server = app.server
+app = dash.Dash(__name__, suppress_callback_exceptions=True,
+                meta_tags=[{'name': 'viewport',
+                            'content': 'width=device-width, initial-scale=1.0'}]
+                
+                )
+server = app.server
 
 
 
@@ -27,6 +28,13 @@ app.layout = html.Div([
         'textAlign':'center',
         'colors': colors['text']
     }),
+
+     dcc.Markdown(
+         ```hello```
+            id = 'python',
+            style={
+                'background-color':'blue'
+            },),
 
         dcc.Upload(
             id='upload-image',

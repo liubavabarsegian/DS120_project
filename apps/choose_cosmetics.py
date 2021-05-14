@@ -9,7 +9,10 @@ import pandas as pd
 import pathlib
 import app
 import dash_table
+import dash_table_experiments as dt
 import dash_bootstrap_components as dbc
+import dash_daq as daq
+
 
 # get relative data folder, we are doiing this, as the datasets are in the datasets folder, not the current directory
 PATH = pathlib.Path(__file__).parent
@@ -27,9 +30,9 @@ server = app.server
 app.config['suppress_callback_exceptions']=True
 
 app.layout = html.Div(
-    id = 'page-content',
+    id = 'nully-wrapper',
    
-
+    
     children = [
     html.Div([
         html.H1("Choose cosmetics",
@@ -91,28 +94,44 @@ app.layout = html.Div(
     html.H4('Here is a table with the most suitable for you cosmetics products\n'),
     html.H1("\n\n\n\n\n"),
     dash_table.DataTable(
+
         id='my_output',
-        columns=[{"name": i, "id": i} for i in df.columns],
+        columns=[{"name": i, "id": i} for i in df.columns[~(df.columns == 'Ingredients')]],
         data=df.to_dict('records'),
         style_header={'border':'1px solid indigo'},
         style_cell={
+            'whiteSpace':'normal',
+            'height':'auto',
             'color':'navy',
             'background-color':'thistle',
-            'border':'1px solid indigo'
+            'border':'1px solid indigo',
+            'textAlign':'left'
         },
+        filter_action = 'custom'
+
+        
     ),
     ]),
         
     
     ],
     style = {
-        'background':'red',
-            }, 
+        'backgroundColor':'pink',
+        'margin':'0px',
+        'top':'0px',
+        'left':'0px',
+        'padding': '0px'
+        }, 
+    
    
    )
     
  
-
+daq.Gauge(style={
+        'color':'navy', 
+        'marginBottom':'0px',
+        'margin-bottom':'0px'
+    }),
 
 
 @app.callback(

@@ -11,7 +11,7 @@ import app
 import dash_table
 import dash_table_experiments as dt
 import dash_bootstrap_components as dbc
-import dash_daq as daq
+
 
 
 # get relative data folder, we are doiing this, as the datasets are in the datasets folder, not the current directory
@@ -30,15 +30,18 @@ server = app.server
 app.config['suppress_callback_exceptions']=True
 
 app.layout = html.Div(
-    id = 'nully-wrapper',
-   
+       
     
     children = [
     html.Div([
         html.H1("Choose cosmetics",
             style={
                 'textAlign':'center',
-                'color':'navy', 'background-color':'lavender'}
+                'color':'navy', 'background-color':'lavender',
+                'width':'895px', 
+                'height':'100px', 
+                'vertical-align':'middle', 
+                'transform':'scale(1.5)', 
         )   
     ]),
     
@@ -71,7 +74,12 @@ app.layout = html.Div(
         ),
     html.H4("Please specify your skin type\n"),
     html.H5("Here is a picture that can help you determine the skin type. If anyway you cannot do it, please select 'Not sure' option\n"),
-    html.Img(src='https://3.bp.blogspot.com/-efc9Jwzy_xg/WxW09_1PB3I/AAAAAAAAAWk/7QwYJ1T03CYVfLr2NHmACZ33dX3Uuqk1gCLcBGAs/s640/IMG_8215.JPG'),
+    html.Img(
+        src='https://3.bp.blogspot.com/-efc9Jwzy_xg/WxW09_1PB3I/AAAAAAAAAWk/7QwYJ1T03CYVfLr2NHmACZ33dX3Uuqk1gCLcBGAs/s640/IMG_8215.JPG',
+        style={
+            'padding':'50px',
+            'borderRadius':'10px'
+        }),
     dcc.Dropdown( #dropdown for skin type
                 id = 'skintype_dd',
                 options=[
@@ -98,16 +106,19 @@ app.layout = html.Div(
         id='my_output',
         columns=[{"name": i, "id": i} for i in df.columns[~(df.columns == 'Ingredients')]],
         data=df.to_dict('records'),
-        style_header={'border':'1px solid indigo'},
+        style_header={
+            'border':'1px solid indigo', 
+            'fontWeight':'bold'},
         style_cell={
             'whiteSpace':'normal',
             'height':'auto',
             'color':'navy',
             'background-color':'thistle',
             'border':'1px solid indigo',
-            'textAlign':'left'
+            'textAlign':'left',
+        
         },
-        filter_action = 'custom'
+        #filter_action = 'custom'
 
         
     ),
@@ -117,21 +128,16 @@ app.layout = html.Div(
     ],
     style = {
         'backgroundColor':'pink',
-        'margin':'0px',
-        'top':'0px',
-        'left':'0px',
-        'padding': '0px'
+        'marginBottom':'0px',
+        'margin-bottom':'0px',
+        
         }, 
     
    
    )
     
  
-daq.Gauge(style={
-        'color':'navy', 
-        'marginBottom':'0px',
-        'margin-bottom':'0px'
-    }),
+
 
 
 @app.callback(

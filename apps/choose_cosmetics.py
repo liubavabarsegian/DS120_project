@@ -7,7 +7,8 @@ import dash
 import plotly.express as px
 import pandas as pd
 import pathlib
-import app
+#import app
+from app import app
 import dash_table
 #import dash_table_experiments as dt
 import dash_bootstrap_components as dbc
@@ -21,15 +22,15 @@ DATA_PATH = PATH.joinpath("../datasets").resolve()
 df = pd.read_csv(DATA_PATH.joinpath("Sephora_cosmetics_df.csv"))
 #sales_list = ["North American Sales", "EU Sales", "Japan Sales", "Other Sales",	"World Sales"]
 
-app = dash.Dash(__name__, suppress_callback_exceptions=True,
-                meta_tags=[{'name': 'viewport',
-                            'content': 'width=device-width, initial-scale=1.0'}]
-                )
-server = app.server
+# app = dash.Dash(__name__, suppress_callback_exceptions=True,
+#                 meta_tags=[{'name': 'viewport',
+#                             'content': 'width=device-width, initial-scale=1.0'}]
+#                 )
+# server = app.server
 
-app.config['suppress_callback_exceptions']=True
+#app.config['suppress_callback_exceptions']=True
 
-app.layout = html.Div(
+layout = html.Div(
        
     
     children = [
@@ -38,11 +39,12 @@ app.layout = html.Div(
             style={
                 'vertical-align':'buttom',
                 'textAlign':'center',
-                'color':'navy', 'background-color':'#AFC4D5',
+                'color':'#1A3E5C', 'background-color':'#AFC4D5',
                 #'width':'895px', 
                 'height':'70px',
                 'text-align':'50PX',
-                'borderRadius':'25px'
+                'borderRadius':'25px',
+                "boxShadow": "0px 15px 30px -10px grey",
                 #'transform':'scale(1.5)'
                 }
         )   
@@ -52,18 +54,18 @@ app.layout = html.Div(
     
 
     html.Div([
-        html.H2('We will help you to choose the best fitting skincare product.\n', 
+        html.H1('We will help you to choose the best fitting skincare product.\n', 
         style={
             'margin':'25px',
             'text-align':'center',
-            'color':'navy'
+            'color':'#1A3E5C',
         }),
         #html.P("This conversion happens behind the scenes by Dash's JavaScript front-end"),
             
         
-    html.H3("Please specify the skincare product you want\n", 
+    html.H2("Please specify the skincare product you want.\n", 
         style={
-            'color':'navy',
+            'color':'#1A3E5C',
             'margin':'15px'
             #'margin-left':'center'
         }),
@@ -79,24 +81,25 @@ app.layout = html.Div(
                 {'label': 'Not sure', 'value' : 'Not sure'}
             ],
             style = {
-                'color':'darkslategray',
+                'color':'navy',
                 'background-color':'#AFC4D5', 
                 #'display':'inline-block',
                 'margin-top':'25px',
                 'margin-bottom':'25px',
                 'borderRadius':'25px',
+                'font-size':'20px'
             },
             value='Moisturizer', #the default value set
             multi=True
         ),
-    html.H3("Please specify your skin type\n", 
+    html.H2("Please, specify your skin type.\n", 
             style= {
-                'color':'navy',
+                'color':'#1A3E5C',
                 'margin':'15px',
             }),
-    html.H4("Here is a picture that can help you determine the skin type. If anyway you cannot do it, please select 'Not sure' option\n", 
+    html.H2("Here is a picture that can help you determine the skin type. If anyway you cannot do it, please select 'Not sure' option.\n", 
         style= {
-                'color':'navy',
+                'color':'#1A3E5C',
                 'margin':'15px'
             }),
     html.Img(
@@ -121,20 +124,22 @@ app.layout = html.Div(
                     {'label': 'Not sure', 'value' : 'Not sure'}
                 ],
                 style = {
-                'color':'darkslategray',
-                'background-color':'#AFC4D5',
+                'color':'navy',
+                'background-color':'#AFC4D5', 
+                #'display':'inline-block',
                 'margin-top':'25px',
-                'margin-bottom':'25px', 
+                'margin-bottom':'25px',
                 'borderRadius':'25px',
+                'font-size':'20px'
             },
                 value='Combination',
                 multi=True
             ),
    #html.Div(id='my_output')
     
-    html.H3('Here is a table with the most suitable for you cosmetics products\n', 
+    html.H2('Here is a table with the most suitable for you cosmetics products\n', 
             style= {
-                'color':'navy',
+                'color':'#1A3E5C',
                 'margin':'20px',
             }),
 
@@ -150,7 +155,7 @@ app.layout = html.Div(
             'backgroundColor':'#98B2C8',
             'whiteSpace':'normal',
             'height':'auto',
-            'color':'navy',
+            'color':'#1A3E5C',
             #'background-color':'thistle',
             'border':'1px solid indigo',
             'textAlign':'left',

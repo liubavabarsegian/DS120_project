@@ -1,3 +1,6 @@
+#!pip install pytesseract
+#!pip install opencv-python
+#!pip install pillow
 import os
 import dash
 from dash.dependencies import Input, Output, State
@@ -5,18 +8,26 @@ import dash_core_components as dcc
 import dash_html_components as html
 from app import app
 #import app
+import base64
+try:
+    from PIL import Image
+except ImportError:
+    import Image
+import pytesseract
+import cv2
+from PIL import ImageEnhance
+from PIL import Image, ImageFilter
+from PIL import ImageOps
+import numpy as np
+import pandas as pd
+import os
+import datetime
+import re
+import string
 
-
-#app = dash.Dash(__name__, suppress_callback_exceptions=True,
-#                 meta_tags=[{'name': 'viewport',
-#                             'content': 'width=device-width, initial-scale=1.0'}]
-                
-#                 )
-#server = app.server
-
-
-
-#app.config['suppress_callback_exceptions']=True
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+path = os.getcwd()
+app.config['suppress_callback_exceptions']=True
 
 
 
@@ -65,7 +76,7 @@ layout = html.Div(
                 'text-align':'center',
                 'color':'#1A3E5C', 
             }),
-        html.Img(src='photos/image1.jpg',
+        html.Img(src=app.get_asset_url('image1.jpg'),
                 style={
                     'text-align':'center',
                     'height':'200px',
@@ -75,7 +86,7 @@ layout = html.Div(
                     'margin-right':'50px',
                 }
         ),
-       html.Img(src='photos/image2.jpg',
+       html.Img(src=app.get_asset_url('image2.jpg'),
                 style={
                     'text-align':'center',
                     'height':'200px',
@@ -86,7 +97,7 @@ layout = html.Div(
                 }
 
        ),
-       html.Img(src='photos/image3.jpg',
+       html.Img(src=app.get_asset_url('image3.jpg'),
                 style={
                     'text-align':'center',
                     'height':'200px',
@@ -97,7 +108,7 @@ layout = html.Div(
                 }
 
        ),
-       html.Img(src='photos/image4.jpg',
+       html.Img(src=app.get_asset_url('image4.jpg'),
                 style={
                     'text-align':'center',
                     'height':'200px',
@@ -148,11 +159,15 @@ layout = html.Div(
             # Allow multiple files to be uploaded
             multiple=True
         ),
-        html.Div(id='output-image-upload'),
+        html.Div(id='output-image-upload', 
+        style = {
+            'text-align':'center',
+        }),
+        html.H5(id = 'output-ingredients_ls'),
         html.H2("Please specify the skincare product you want\n", 
         style={
             'color':'#1A3E5C', 
-            'margin':'15px',
+            'margin':'25px',
             'margin-left':'25px',
             'margin-right':'25px',
             #'margin-left':'center'
@@ -177,7 +192,7 @@ layout = html.Div(
                 'borderRadius':'25px',
                 'font-size':'20px'
             },
-            value='Moisturizer', #the default value set
+            #value='Moisturizer', #the default value set
             multi=True
         ),
     html.H2("Please specify your skin type\n", 
@@ -218,15 +233,15 @@ layout = html.Div(
                 style = {
                 'color':'#1A3E5C', 
                 'background-color':'#A5AFDC', 
-                #'display':'inline-block',
                 'margin-top':'25px',
                 'margin-bottom':'25px',
                 'borderRadius':'25px',
                 'font-size':'20px'
             },
-                value='Combination',
+                #value='Combination',
                 multi=True
             ),
+            
         html.H1('Thank you!', 
         style = {
             'margin-top':'100px',
@@ -266,24 +281,50 @@ def save_file(contents):
     with open('some_image.png', "wb") as fp:
         fp.write(base64.decodebytes(data))
 
+#defining OCR function
+def ocr(pic):
+
+    # Read image
+    im = Image.open(pic)
+    # make black
+    bw = im.convert('L')
+
+    enh = ImageEnhance.Contrast(bw).enhance(2.8)
+
+    # enh = ImageOps.invert(enh)
+
+    ##display image
+    # enh.show()
+
+    # #saves the image in the current directory
+    # enh.save("black.jpg")
+    a = pytesseract.image_to_string(enh, lang='eng')
+    n = re.findall("\w+", a)
+    t = ", ".join(n)
+    return t[13:]
+
+
+@app.callback(Output('output-ingredients_ls', 'children'),
+              Input('upload-image', 'contents'))
+def ocr_output(contents):  # function for ocr output
+    if contents is not None:
+        save_file(contents)     #saves the imported image in the apps directory, whenever an image has been uploaded
+        filename = path + "/some_image.png"
+        ingredients_ls = ocr(filename)
+        print(ingredients_ls)
+        return ingredients_ls
+
 
 @app.callback(Output('output-image-upload', 'children'),
               Input('upload-image', 'contents'),
               State('upload-image', 'filename'))
-def update_output(list_of_contents, list_of_names):
-    if list_of_contents is not None:
-        children = [
-            parse_contents(c, n) for c, n in
-            zip(list_of_contents, list_of_names)]
-        return children
-
-        save_file(contents)
+def update_output(contents, names): #function for showing the uploaded picture
+    if contents is not None:
+         return parse_contents(contents, names)
         
 
 
 
-if __name__ == '__main__':
-    app.run_server(debug=True)
 
 
 

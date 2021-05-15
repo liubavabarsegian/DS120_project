@@ -52,48 +52,54 @@ layout = html.Div(
             'margin-left':'25px',
             'margin-right':'25px',
             'color':'#1A3E5C', 
+            'font-family':'cursive'
         }),
-        html.H2('First, upload a photo accourding to the instructions below', 
+        html.H2('First, you upload a photo accourding to the instructions below. Please, make sure that the the photo is not blurry, and the text is readable. Also, do not forget to crop the photo so only ingredients are visible.', 
             style = {
             'margin-left':'25px',
             'margin-right':'25px',
             'color':'#1A3E5C', 
+            'font-family':'cursive'
         }), 
         html.H2('Second, our app converts the image to text', 
             style = {
             'margin-left':'25px',
             'margin-right':'25px',
             'color':'#1A3E5C', 
+            'font-family':'cursive'
         }),
         html.H2('After it, little people inside the machine are rushing to find out whether the product is suitable for you:)', 
             style = {
             'margin-left':'25px',
             'margin-right':'25px',
             'color':'#1A3E5C', 
+            'font-family':'cursive'
         }),
         html.H1('Here are some instructions of the photo uploading', 
             style={
                 'text-align':'center',
                 'color':'#1A3E5C', 
+                'font-family':'cursive'
             }),
+        html.Div([
         html.Img(src=app.get_asset_url('image1.jpg'),
                 style={
                     'text-align':'center',
                     'height':'200px',
-                    'width':'200px',
+                    #'width':'200px',
                     'display': 'inline-block',
-                    'margin-left':'250px',
-                    'margin-right':'50px',
+                    'margin-right':'3%',
+                    'margin-left':'3%'
+                    
                 }
         ),
        html.Img(src=app.get_asset_url('image2.jpg'),
                 style={
                     'text-align':'center',
                     'height':'200px',
-                    'width':'200px',
                     'display': 'inline-block',
-                    'margin-left':'50px',
-                    'margin-right':'50px',
+                    'margin-left':'3%' ,
+                    'margin-right':'3%',                 
                 }
 
        ),
@@ -101,10 +107,10 @@ layout = html.Div(
                 style={
                     'text-align':'center',
                     'height':'200px',
-                    'width':'200px',
+                    #'width':'200px',
                     'display': 'inline-block',
-                    'margin-left':'50px',
-                    'margin-right':'50px',
+                    'margin-right':'3%',
+                    'margin-left':'3%',
                 }
 
        ),
@@ -112,13 +118,16 @@ layout = html.Div(
                 style={
                     'text-align':'center',
                     'height':'200px',
-                    'width':'200px',
+                    #'width':'200px',
                     'display': 'inline-block',
-                    'margin-left':'25px',
-                    'margin-right':'25px',
+                    'margin-left':'3%'
                 },
 
        ),
+        ],style = {
+            'text-align':'center',
+        }
+        ),
         dcc.Upload(
             id='upload-image',
             children=html.Div([
@@ -171,7 +180,7 @@ layout = html.Div(
             'margin':'25px',
             'margin-left':'25px',
             'margin-right':'25px',
-            #'margin-left':'center'
+            'font-family':'cursive'
         }),
     dcc.Dropdown( #dropdown for product type
             id = 'product_dd',
@@ -202,6 +211,7 @@ layout = html.Div(
                 'margin':'15px',
                 'margin-left':'25px',
                 'margin-right':'25px',
+                'font-family':'cursive'
             }),
     html.H2("Here is a picture that can help you determine the skin type. If anyway you cannot do it, please select 'Not sure' option\n", 
         style= {
@@ -209,19 +219,24 @@ layout = html.Div(
                 'margin':'15px',
                 'margin-left':'25px',
                 'margin-right':'25px',
+                'font-family':'cursive'
             }),
+    html.Div([
     html.Img(
         src=app.get_asset_url('skintypes.jpg'),
         style={
-            'text-align':'center',
-            'borderRadius':'25px',
             'border-style':'solid',
-            'border-color':'#1A3E5C',
+            'border-color':'navy',
             'borderRadius':'50x',
-            #'display':'block',
-            'margin-left':'30%',
-            
+            'display':'block',
+                                    
         }),
+    ],
+    style = {
+        #'text-align':'center',
+        'margin-left':'20%',
+        'margin-right':'20%'
+    }),
     dcc.Dropdown( #dropdown for skin type
                 id = 'skintype_dd',
                 options=[
@@ -244,12 +259,21 @@ layout = html.Div(
                 multi=True
             ),
             
-        html.H1('Thank you!', 
+        html.H1('Thank you for using our app!', 
         style = {
-            'margin-top':'100px',
+            'margin-top':'250px',
             'margin-left':'25px',
             'margin-right':'25px',
+            'font-family':'cursive'
         }),
+        html.Img(
+        src=app.get_asset_url('doggy.jpg'),
+        style = {
+            'margin-left':'25px',
+            'height':'300px',
+            'color':'#1A3E5C', 
+        }
+    )
         
 ],
 style = {
@@ -257,7 +281,8 @@ style = {
         'marginBottom':'0px',
         'margin-bottom':'0px',
         'background':'lavender',
-
+        'margin-left':'10%',
+        'margin-right':'10%',
         },
 )
 

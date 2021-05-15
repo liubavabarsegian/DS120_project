@@ -39,7 +39,7 @@ layout = html.Div(
                 'background-color':'#AFC4D5', 
                 'height':'70px',
                 'text-align':'50PX',
-                'borderRadius':'25px',                
+                'border-radius':'25px',                
                 "boxShadow": "0px 15px 30px -10px grey",
                 
                 }
@@ -55,6 +55,7 @@ layout = html.Div(
             'margin':'25px',
             'text-align':'center',
             'color':'#1A3E5C',
+            'font-family':'cursive'
         }),
         #html.P("This conversion happens behind the scenes by Dash's JavaScript front-end"),
             
@@ -62,7 +63,8 @@ layout = html.Div(
     html.H2("Please specify the skincare product you want.\n", 
         style={
             'color':'#1A3E5C',
-            'margin':'15px'
+            'margin':'15px',
+            'font-family':'cursive'
            
         }),
     dcc.Dropdown( #dropdown for product type
@@ -83,7 +85,7 @@ layout = html.Div(
                 'margin-top':'25px',
                 'margin-bottom':'25px',
                 'borderRadius':'25px',
-                'font-size':'20px'
+                'font-size':'20px',
             },
             #value=['Moisturizer'], #the default value set
             multi=True
@@ -92,21 +94,31 @@ layout = html.Div(
             style= {
                 'color':'#1A3E5C',
                 'margin':'15px',
+                'font-family':'cursive'
             }),
     html.H2("Here is a picture that can help you determine the skin type. If anyway you cannot do it, please select 'Not sure' option.\n", 
         style= {
                 'color':'#1A3E5C',
-                'margin':'15px'
+                'margin':'15px',
+                'font-family':'cursive'
             }),
+    html.Div([
     html.Img(
-        src='https://3.bp.blogspot.com/-efc9Jwzy_xg/WxW09_1PB3I/AAAAAAAAAWk/7QwYJ1T03CYVfLr2NHmACZ33dX3Uuqk1gCLcBGAs/s640/IMG_8215.JPG',
+        src=app.get_asset_url('skintypes.jpg'),
         style={
             'border-style':'solid',
             'border-color':'navy',
             'borderRadius':'50x',
-            'text-align':'center',
+            
             'display':'block',
+            
         }),
+    ],
+    style = {
+        'text-align':'center',
+        'margin-left':'20%',
+        'margin-right':'20%'
+    }),
     dcc.Dropdown( #dropdown for skin type
                 id = 'skintype_dd',
                 options=[
@@ -133,8 +145,9 @@ layout = html.Div(
     
     html.H2('Here is a table with the most suitable for you cosmetics products\n', 
             style= {
-                'color':'navy',
+                'color':'#1A3E5C',
                 'margin':'20px',
+                'font-family':'cursive'
             }),
 
     dash_table.DataTable(
@@ -152,12 +165,31 @@ layout = html.Div(
             'borderRadius':'25px',
             'border':'1px solid indigo',
             'textAlign':'left',
+            'font-family':'cursive'
         
         },
         
 
         
     ),
+    html.H1('Thank you for using our app!', 
+        style = {
+            'margin-top':'250px',
+            'margin-left':'25px',
+            'margin-right':'25px',
+            'font-family':'cursive',
+            'color':'#1A3E5C', 
+            
+        }),
+    html.Img(
+        src=app.get_asset_url('cat.jpg'),
+        style = {
+            'margin-left':'25px',
+            'height':'300px',
+            
+            
+        }
+    )
     ]),
     
 ],
@@ -165,6 +197,8 @@ style = {
     'backgroundColor':'lavender',
     'marginBottom':'0px',
     'margin-bottom':'0px',
+    'margin-left':'10%',
+    'margin-right':'10%',
     },
 
 ),

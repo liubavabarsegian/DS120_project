@@ -23,20 +23,23 @@ app.layout = html.Div([
             'borderRadius':'25px',
             'font-size':'30px',
             #'text-align':'center',
+            'font-family':'cursive'
         }),
         dcc.Link('Choose your Cosmetics', href='/apps/choose_cosmetics',
         style = {
             'margin-left':'50px',
             'background-color':'lavender',
             'borderRadius':'25px',
-            'font-size':'30px'
+            'font-size':'30px',
+            'font-family':'cursive'
         }),
         dcc.Link('Cosmetics Suitability', href='/apps/cosmetics_suitability', 
         style = {
             'margin-left':'30px',
             'background-color':'lavender',
             'borderRadius':'25px',
-            'font-size':'30px'
+            'font-size':'30px',
+            'font-family':'cursive'
         }),
         
     ], className="row"),

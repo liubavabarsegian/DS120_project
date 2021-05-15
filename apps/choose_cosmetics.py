@@ -32,6 +32,7 @@ layout = html.Div(
             style={
                 'vertical-align':'buttom',
                 'textAlign':'center',
+                'font-family':'Segoe Print',
                 
                 
                 'color':'#1A3E5C', 
@@ -147,7 +148,8 @@ layout = html.Div(
             'whiteSpace':'normal',
             'height':'auto',
             'color':'navy',
-            
+            'margin':'500px',
+            'borderRadius':'25px',
             'border':'1px solid indigo',
             'textAlign':'left',
         

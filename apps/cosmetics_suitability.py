@@ -44,7 +44,7 @@ layout = html.Div(
             'text-align':'50PX',
             'borderRadius':'25px',
             "boxShadow": "0px 15px 30px -10px grey",
-            #'transform':'scale(1.5)'
+            'font-family':'Segoe Print'
                 }
             ),
         html.H1('How does it work?', 
@@ -131,6 +131,7 @@ layout = html.Div(
                     'verical-align':'center',
                     'margin':'2px',
                     'margin-top':'5px',
+                    'font-family':'Segoe Print'
                 }
             ),
             style={
@@ -150,10 +151,10 @@ layout = html.Div(
 
 
                 "background": "#7F7DA9",
-                #"background": "blue",
-                #"background": "blue",
                 'color':'#1A3E5C', 
-                "filter": "progid:DXImageTransform.Microsoft.gradient(startColorstr='#46fcb1',endColorstr='#3ffb6e',GradientType=1)"
+                "filter": "progid:DXImageTransform.Microsoft.gradient(startColorstr='#46fcb1',endColorstr='#3ffb6e',GradientType=1)",
+                'font-family':'Segoe Print',
+                'width':'400px',
             },
 
             # Allow multiple files to be uploaded
@@ -210,15 +211,16 @@ layout = html.Div(
                 'margin-right':'25px',
             }),
     html.Img(
-        src='https://3.bp.blogspot.com/-efc9Jwzy_xg/WxW09_1PB3I/AAAAAAAAAWk/7QwYJ1T03CYVfLr2NHmACZ33dX3Uuqk1gCLcBGAs/s640/IMG_8215.JPG',
+        src=app.get_asset_url('skintypes.jpg'),
         style={
-            #'padding':'50px',
-            #'borderRadius':'10px',
+            'text-align':'center',
+            'borderRadius':'25px',
             'border-style':'solid',
             'border-color':'#1A3E5C',
             'borderRadius':'50x',
-            'text-align':'center',
-            'display':'block',
+            #'display':'block',
+            'margin-left':'30%',
+            
         }),
     dcc.Dropdown( #dropdown for skin type
                 id = 'skintype_dd',
@@ -261,23 +263,18 @@ style = {
 
 
 def parse_contents(contents, filename):
+    """Parses the uploaded image on dash"""
     return html.Div([
         html.H3(filename),
         print(contents),
         # HTML images accept base64 encoded strings in the same format
         # that is supplied by the upload
         html.Img(src=contents),
-
-
     ])
-
-
-
 
 def save_file(contents):
     """Decode and store a file uploaded with Plotly Dash."""
-
-    data = contents.encode("utf8").split(b";base64,")[1]
+    data = contents[0].encode("utf8").split(b";base64,")[1]
     with open('some_image.png', "wb") as fp:
         fp.write(base64.decodebytes(data))
 
@@ -310,7 +307,7 @@ def ocr_output(contents):  # function for ocr output
     if contents is not None:
         save_file(contents)     #saves the imported image in the apps directory, whenever an image has been uploaded
         filename = path + "/some_image.png"
-        ingredients_ls = ocr(filename)
+        ingredients_ls = ocr(filename)  # reads the text from the image
         print(ingredients_ls)
         return ingredients_ls
 

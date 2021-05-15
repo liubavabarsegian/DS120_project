@@ -8,7 +8,7 @@ import pathlib
 from app import app
 
 
-layout = html.Div([
+layout = html.Div([#this is the first page that the user sees when opens the app
     
     html.H1('Welcome to Skindetectorisator!', 
         style = {
@@ -38,7 +38,7 @@ layout = html.Div([
     style = {
         'margin-top':'180px',
         'margin-left':'25px',
-        #'color':'#1A3E5C',
+        'color':'#1A3E5C',
         'margin-bottom':'0px',
         'font-family':'cursive',
     }),

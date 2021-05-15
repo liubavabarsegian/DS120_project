@@ -28,7 +28,7 @@ layout = html.Div(
     
     children = [
     html.Div([
-        html.H1("Choose cosmetics",
+        html.H1("Choose Cosmetics",
             style={
                 'vertical-align':'buttom',
                 'textAlign':'center',
@@ -57,10 +57,10 @@ layout = html.Div(
             'color':'#1A3E5C',
             'font-family':'cursive'
         }),
-        #html.P("This conversion happens behind the scenes by Dash's JavaScript front-end"),
+        
             
         
-    html.H2("Please specify the skincare product you want.\n", 
+    html.H2("Please specify the skincare product you want.", 
         style={
             'color':'#1A3E5C',
             'margin':'15px',
@@ -94,6 +94,7 @@ layout = html.Div(
             style= {
                 'color':'#1A3E5C',
                 'margin':'15px',
+                'margin-top':'70px',
                 'font-family':'cursive'
             }),
     html.H2("Here is a picture that can help you determine the skin type. If anyway you cannot do it, please select 'Not sure' option.\n", 
@@ -108,7 +109,7 @@ layout = html.Div(
         style={
             'border-style':'solid',
             'border-color':'navy',
-            'borderRadius':'50x',
+            'borderRadius':'50px',
             
             'display':'block',
             
@@ -132,25 +133,23 @@ layout = html.Div(
                 style = {
                 'color':'navy',
                 'background-color':'#AFC4D5', 
-                #'display':'inline-block',
                 'margin-top':'25px',
                 'margin-bottom':'25px',
                 'borderRadius':'25px',
                 'font-size':'20px'
             },
-                #value=['Combination'],
+                
                 multi=True
             ),
-   #html.Div(id='my_output')
     
-    html.H2('Here is a table with the most suitable for you cosmetics products\n', 
+    html.H2('Here is a table with the most suitable cosmetics products for you:', 
             style= {
                 'color':'#1A3E5C',
                 'margin':'20px',
                 'font-family':'cursive'
             }),
 
-    dash_table.DataTable(
+    dash_table.DataTable(#this table is outputed based on the given labels and skin types. The table is updated every time the user changes the input
 
         id='my_output',
         style_header={
@@ -181,7 +180,7 @@ layout = html.Div(
             'color':'#1A3E5C', 
             
         }),
-    html.Img(
+    html.Img(#cute cat photo
         src=app.get_asset_url('cat.jpg'),
         style = {
             'margin-left':'25px',
@@ -217,6 +216,10 @@ style = {
 #def update_output_div(input_value):#
 #    return 'Output: {}'.format(input_value)
 def cosmetics(label, skintype):
+    '''this function takes label(skincare product) and the skin type. Both inputs must be lists of strings.
+    There are 4 cases for this function.
+        
+    '''
     if label is None and skintype is None:
         raise PreventUpdate
     if ('Not sure' not in skintype) and ('Not sure' in label):

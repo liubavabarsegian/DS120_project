@@ -13,7 +13,7 @@ from apps import choose_cosmetics,cosmetics_suitability, Intro_page #add third p
 
 app.layout = html.Div([
 
-    html.Img(
+    html.Img(#logo
         src=app.get_asset_url('logo.png'),
         style = {
             'margin-top':'30px',
@@ -21,7 +21,7 @@ app.layout = html.Div([
         }
     ),
     dcc.Location(id='url', refresh=False), #allows the app to read  the url, given the path, by default the pathname is empty
-    html.Div([
+    html.Div([#these are three menu options, that allow user to select the page of the app
         
         dcc.Link('Home Page', href='/apps/Intro_page', 
         style = {

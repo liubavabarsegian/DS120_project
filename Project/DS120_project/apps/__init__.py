@@ -1,1 +1,0 @@
-#just empty, we need this for the app to read the pages in this folder 

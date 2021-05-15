@@ -304,17 +304,24 @@ layout = html.Div(
 
             },
         ),
-
-        html.H1('Thank you!',
+        
+        html.H1('Thank you for using our app!',
                 style={
                     'margin-top': '100px',
                     'margin-left': '25px',
                     'margin-right': '25px',
                 }),
 
+        html.Img(
+            src=app.get_asset_url('doggy.jpg'),
+            style={
+                'height':'300px',
+                'text-align':'center',
+            }
+        ),
+
     ],
-    style={
-        style = {
+    style = {
         'backgroundColor':'lavender',
         'marginBottom':'0px',
         'margin-bottom':'0px',
@@ -323,8 +330,6 @@ layout = html.Div(
         'margin-right':'10%',
         },
 
-
-    },
 )
 
 

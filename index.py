@@ -40,7 +40,7 @@ app.layout = html.Div([
             'font-size':'30px',
             'font-family':'cursive'
         }),
-        dcc.Link('Cosmetics Suitability', href='/apps/cosmetics_suitability', 
+        dcc.Link('Cosmetics Suitability', href='/apps/cosmetics_suitability2', 
         style = {
             'margin-left':'50px',
             'background-color':'lavender',
@@ -76,7 +76,7 @@ app.layout = html.Div([
 def display_page(pathname):
     if pathname == '/apps/choose_cosmetics':
         return choose_cosmetics.layout
-    if pathname == '/apps/cosmetics_suitability':
+    if pathname == '/apps/cosmetics_suitability2':
         return cosmetics_suitability.layout
     else:
         return Intro_page.layout        
